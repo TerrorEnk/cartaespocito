@@ -1,0 +1,284 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #fff;
+    --bg-color: #FFDF7B; 
+    --bg-envelope-color: #ffe3ed; 
+    --envelope-tab: #8B5A2B; 
+    --envelope-cover: #B87D4A;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --txt-color: #003049; 
+    --heart-color: #FFDF7B; 
+}
+
+body {
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    font-family: "Marck Script", serif;
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 50px;
+    color: #444;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px; /* Reducido de 40px */
+    width: 100%;
+    max-width: 900px; /* Reducido de 1000px */
+    margin: 0 auto;
+}
+
+.container {
+    width: 400px;
+}
+
+.container > .envelope-wrapper {
+    position: relative;
+    background-color: var(--bg-envelope-color);
+    box-shadow: 0 0 40px var(--shadow-color);
+    border-radius: 15px;
+}
+
+.envelope-wrapper > .envelope {
+    position: relative;
+    width: 400px;
+    height: 300px;
+}
+
+.envelope-wrapper > .envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    border-top: 180px solid var(--envelope-tab);
+    border-right: 200px solid transparent;
+    border-left: 200px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+    border-radius: 10px;
+}
+
+.tap-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    transform: rotate(-90deg,90deg);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--envelope-cover);
+}
+
+.tap-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    background-color: var(--envelope-cover);
+    transform: rotate(90deg, -90deg);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.envelope-wrapper.disable-envelope .envelope::before {
+    pointer-events: none;
+}
+
+.envelope > .letter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    text-align: center;
+    box-shadow: 0 0 5px var(--shadow-color);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform .5s ease-in-out;
+}
+
+.envelope > .letter > .text {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    color: var(--txt-color);
+    text-align: left;
+    font-size: 12px;
+    border: 3px dotted var(--txt-color);
+    padding: 10px;
+    height: 100%;
+    line-height: 16px;
+    cursor: pointer;
+    overflow: scroll;
+}
+
+.heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: var(--heart-color);
+    transform: translate(-50%, 0%) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    box-shadow: 0 1px 6px var(--shadow-color);
+    cursor: pointer;
+    z-index: 999;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--heart-color);
+    border-radius: 80%;
+}
+
+.heart:before {
+    top: -15px;
+}
+  
+.heart:after {
+    right: 15px;
+}
+
+.flap > .envelope:before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.flap > .heart {
+    transform: rotate(90deg);
+    transition-delay: 0.4s;
+}
+
+.letter.letter-opening {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.letter.closing-letter {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+    z-index: 10000;
+}
+
+.letter.opened{
+    z-index: 10000;
+}
+
+/* Estilos ajustados para Pompompurin (TAMAÑO REDUCIDO) */
+.pompom-container {
+    margin-top: 20px; /* Reducido */
+    flex-shrink: 0;
+    position: relative;
+    align-self: center;
+}
+
+.pompom-image {
+    width: 140px; /* Tamaño reducido (original 220px) */
+    height: auto;
+    border-radius: 10px; /* Reducido */
+    border: 2px solid var(--envelope-tab); /* Reducido */
+    box-shadow: 0 3px 8px var(--shadow-color); /* Reducido */
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.pompom-image:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Reducido */
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); } /* Movimiento más sutil */
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--envelope-cover); 
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--heart-color); 
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px; /* Reducido */
+    }
+    
+    .pompom-container {
+        margin: 20px 0; /* Reducido */
+        order: -1;
+    }
+    
+    .pompom-image {
+        width: 120px; /* Reducido (original 180px) */
+    }
+    
+    h1 {
+        font-size: 50px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+    
+    .envelope-wrapper > .envelope {
+        height: 250px;
+    }
+    
+    .envelope-wrapper > .envelope::before {
+        border-top: 150px solid var(--envelope-tab);
+        border-right: 150px solid transparent;
+        border-left: 150px solid transparent;
+    }
+    
+    .pompom-image {
+        width: 100px; /* Reducido (original 150px) */
+        border-width: 1.5px; /* Más delgado */
+    }
+}
